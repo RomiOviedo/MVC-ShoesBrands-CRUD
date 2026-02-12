@@ -76,14 +76,13 @@ This project uses:
 ## 📸 Screenshots
 
 - Brands List  
-![Brand List](ShoppingMVC.ScreensShots/BrandList.png)
- 
+![Brand List](screenshots/BrandList.png)
 
 - Shoes List (with Brand Name)  
-![Brand List](ShoppingMVC.ScreensShots/ShoesList.png)
- 
+![Shoe List](screenshots/ShoesList.png)
+
 - Shoe Create/Edit Form  
-![Brand List]( ShoppingMVC.ScreensShots/Shoe-Create_Edit-Form.png)
+![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
  
 
 ## 🚀 Future Improvements (planned)
