@@ -80,10 +80,10 @@ This project uses:
  
 
 - Shoes List (with Brand Name)  
-
+![Brand List](ShoppingMVC.ScreensShots/ShoesList.png)
  
 - Shoe Create/Edit Form  
-
+![Brand List]( ShoppingMVC.ScreensShots/Shoe-Create_Edit-Form.png)
  
 
 ## 🚀 Future Improvements (planned)
