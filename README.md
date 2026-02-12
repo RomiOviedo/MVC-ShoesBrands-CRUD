@@ -1,4 +1,4 @@
-Shoes & Brands - ASP.NET Core MVC (CRUD)
+# Shoes & Brands - ASP.NET Core MVC (CRUD)
 
 
 This project is a simple but complete ASP.NET Core MVC application that implements CRUD operations for **Brands** and **Shoes**, using a clean architecture approach with **Repository + Service**, **Entity Framework Core**, **AutoMapper**, and a Bootstrap UI.
@@ -76,14 +76,14 @@ This project uses:
 ## 📸 Screenshots
 
 - Brands List  
-
+![Brand List](ShoppingMVC.ScreensShots/BrandList.png)
  
 
 - Shoes List (with Brand Name)  
-
+![Brand List](ShoppingMVC.ScreensShots/ShoesList.png)
  
 - Shoe Create/Edit Form  
-
+![Brand List]( ShoppingMVC.ScreensShots/Shoe-Create_Edit-Form.png)
  
 
 ## 🚀 Future Improvements (planned)
