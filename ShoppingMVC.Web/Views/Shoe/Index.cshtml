@@ -1,0 +1,172 @@
+﻿@using ShoppingMVC.Web.ViewModels.Shoe
+@using X.PagedList
+@model IPagedList<ShoeListVM>
+
+@{
+    ViewData["Title"] = "Shoe List";
+}
+<div class="container">
+    <div class="row mb-3">
+
+        <!--Primer col -->
+        <div class="col-6">
+
+            <!--titulo-->
+            <h3>Shoe List</h3>
+        </div>
+        <!--SEGUNDA COL-->
+        <div class="col-4 text end">
+
+            <!--BTN NUEVO-->
+            <a asp-controller="Shoe" asp-action="UpSert" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>
+                New
+            </a>
+        </div>
+    </div>
+
+    <!--TABLA-->
+    <table class="table table-bordered table-hover">
+
+        <!--ENCABEZADO DE LA TABLA-->
+        <thead>
+            <tr>
+                <th style="width:30%">Shoe</th>
+                <th style="width:30%">Brand</th>
+                <th style="width:40%">Actions</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            <!--SI HAY Shoes-->
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <!--se genera una fila para cada una-->
+
+                    <tr id="@item.ShoeId">
+                        <!--guardo el id, no se muestra-->
+                        <!--nombre de la brand-->
+                        <td>@item.ShoeName</td>
+                        <td>@item.BrandName</td>
+
+                        <!--Ancor editar, porque le paso una ruta para la vista upsert de Brand-->
+                        <td>
+                            <a class="btn btn-warning" asp-controller="Shoe" asp-action="UpSert" asp-route-id="@item.ShoeId">
+                                <i class="bi bi-pencil-square"></i>&nbsp;Edit
+                            </a>
+                            <!--btn borrar con SWEETALERT, porque no necesito una vista-->
+
+
+                            <button class="btn btn-danger" onclick="confirmDelete('@item.ShoeId')">
+                                <i class="bi bi-trash-fill"></i>&nbsp; Delete
+                            </button>
+
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <!--colspan=2  las dos columnas se ahcen una , text centrado-->
+                        no shoes added yets!    <!--no se han añadido marcas-->
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <!--PAGINACION MANUAL-->
+
+    <div class="d-flex justify-content-center">
+        <!--d-flex= display flex || justify-content-center = contenido centrado horizontalmente -->
+
+        <nav aria-label="Page-navigation">
+            <!--le dice al navegador = esto es una zona de navegacion-->
+            <ul class="pagination">
+
+                <!--boton ANTERIOR-->
+
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)">Previous</a>
+                </li>
+
+                <!--NUMEROS DE PAGINAS-->
+                @for (int i = 1; i <= Model.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
+                {
+                    <li class=" page-item @(Model.PageNumber == i ? "active" : "")">
+                        <!--RESALTA EL NRO DE LA PAG ACTUAL-->
+                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                <!--BOTON NEXT-->
+                <!--genera un item de la lista q va a estar habilitado o deshabilitado-->
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"> NEXT</a>
+
+                </li>
+
+            </ul>
+
+        </nav>
+    </div>
+
+
+</div>
+<!--RAZOR todo lo q esta ACA se va a insertar en la section del script del LAYOT (disposicion) -->
+@section Scripts{    
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>             <!--JQUERY para AYAX-->
+    <script src="//cdn.Jsdelivr.net/npm/sweetalert2@11"></script>   <!--SWEET ALERT pop up-->
+
+    <script type="text/javascript">
+
+        function confirmDelete(shoeId){
+            swal.fire({
+                    title:'Are you sure?',     // estas seguro
+                    text:'You will not be able to recover this record',     // no podras recuperar este registro
+                    icon:'warning',
+                    showCancelButton:true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!'
+
+                    }).then((result) =>
+                     {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax({
+                                url:'/Shoe/Delete/'+ shoeId,
+                                type:'POST',
+                                    success: function(data)     // DATA  es lo que devuelve mi controller= true(success) or false
+                                {
+                                    if(data.success)
+                                    {
+                                            Swal.fire('deleted !','the record has been deleted.','success');
+                                            document.getElementById(shoeId).remove();   // elimina la fila de la tabla
+                                    }
+                                    else
+                                    {
+                                        Swal.fire('error', data.message, 'error')
+                                    }
+
+                                },
+                                error:function()
+                                {
+                                    Swal.fire('Error', 'the was an error deleting the record', 'error')
+                                }
+                        });
+                    }
+            });
+        }
+    
+    </script>
+}

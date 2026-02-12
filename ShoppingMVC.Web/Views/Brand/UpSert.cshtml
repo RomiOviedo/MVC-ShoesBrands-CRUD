@@ -1,0 +1,55 @@
+﻿@using ShoppingMVC.Web.ViewModels.Brand
+@model BrandEditVM
+
+<form method="post" asp-asp-controller="Brand" asp-action="UpSert" >
+
+    <input type="hidden" asp-for="BrandId"/>  @*guardo el id escondido para editar el obj*@
+
+    <div class=" border p-3 mt-4"   >
+
+        <div class="row pb-2">
+            <h2 class="text-primary">@(Model.BrandId==0? "Agregar Brand": "Editar Brand")</h2>
+            
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div> @*span modelOnly muestra errores generales*@
+    </div>
+
+    <div class= "row">
+
+        <div class=" mb-3 col-auto">
+            <label asp-asp-for="BrandName"></label>
+            <input asp-for="BrandName" class=" form-control" />
+            <span asp-asp-validation-for="BrandName" class="text-danger"></span> @* span para que muestre el data notation*@
+        </div>
+    </div>
+
+    @if (Model.BrandId == 0)
+    {
+        <button type="submit" class="btn btn-success" >
+            <i class=" bi-info bi-save"></i>
+            Confirm
+        </button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-warning" >
+            <i class="bi bi-info-save"></i>
+
+           Confirm
+        </button>
+    }
+
+    <a asp-asp-controller="Brand" asp-action="Index" class="btn btn-info">
+        <i class="bi bi-arrow-return-left"></i>
+
+        Back to list
+    </a>
+
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
