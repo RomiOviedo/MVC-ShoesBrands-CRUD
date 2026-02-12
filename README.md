@@ -66,7 +66,7 @@ This project uses:
 1. Clone the repository
 2. Open the solution in Visual Studio
 3. Update the SQL Server connection string in:
-   - `appsettings.json`
+   - `appsettings.json` → `ConnectionStrings:MyConnection`
 4. Apply migrations:
    - `Update-Database`
 5. Run the project (IIS Express or Kestrel)
